@@ -6,28 +6,31 @@ f.close()
 def addPlayer():
     entryPseudo.configure(background='white')
     pseudo = entryPseudo.get()
-    print("username entered :", entryPseudo.get())
     if len(pseudo) < 4 or len(pseudo) == 0:
         entryPseudo.configure(background='red')
-    else:
-        print("good!")
+        return None
 
     fill = open("score.txt", "a")
     fill.write(pseudo + "   0\n")
     fill.close()
-    printScore()
-
+    print("Added")
 
 def printScore():
     fill = open("score.txt", "r")
     line = " "
-    while line:
+    c = 0
+    while line and c < 7:
         line = fill.readline()
-        Label(frameRight, text=line, borderwidth=1 ).pack()
+        Label(frameTop, text=line, borderwidth=1 ).pack()
+        c+=1
     f.close()
 
-width = 1000
-height = 500
+def open_window():
+    top = Toplevel()
+    top.title("top window")
+    top.geometry("300x300+120+120")
+    button1 = Button(top, text="close", command=top.destroy)
+    button1.pack()
 
 window = Tk(className='Sidoux')
 # for r in range(26):
@@ -46,15 +49,18 @@ frameLeft.grid(row=0, column=0, sticky=W)
 
 frameRight = Frame(window, width=100, height=100)
 
-labelScore = Label(frameRight, text="Score", font=("courrier", 30), fg="black")
+labelScore = Label(frameRight, text="Scores", font=("courrier", 30), fg="black")
 labelScore.pack()
-printScore()
 
-entryPseudo = Entry(frameRight, text="Score", font=("courrier", 20), fg="black")
+frameTop = Frame(frameRight, width=100, height=100)
+printScore()
+frameTop.pack()
+
+entryPseudo = Entry(frameRight, font=("courrier", 20), fg="black")
 entryPseudo.pack(side=LEFT, padx=10)
 
-Play = Button(frameRight, text="Score", font=("courrier", 20), fg="black", command= lambda : addPlayer())
+Play = Button(frameRight, text="Play !", font=("courrier", 20), fg="black", command= lambda : addPlayer())
 Play.pack(side=RIGHT)
-frameRight.grid(row=0, column=2, sticky=W)
+frameRight.grid(row=0, column=3, sticky=W)
 
 window.mainloop()
