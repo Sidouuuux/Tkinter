@@ -1,12 +1,13 @@
 import string
 from tkinter import *
-f= open("score.txt","r")
+f = open("score.txt","r")
 f.close()
 
 def addPlayer():
     entryPseudo.configure(background='white')
     pseudo = entryPseudo.get()
-    if len(pseudo) < 4 or len(pseudo) == 0:
+    '''len(pseudo) < 4 or'''
+    if len(pseudo) == 0:
         entryPseudo.configure(background='red')
         return None
 
@@ -31,10 +32,6 @@ def open_window():
 
 
 window = Tk(className='Sidoux')
-# for r in range(26):
-#    for c in range(22):
-#       Label(window, text='R%s/C%s'%(r,c),
-#          borderwidth=1 ).grid(row=r,column=c)
 
 window.geometry("900x450")
 window.iconbitmap("spongebob.ico")
@@ -67,13 +64,20 @@ top = Toplevel()
 top.title("top window")
 top.geometry("971x545")
 top.configure(bg = '#5dbcd2')
-window.configure(bg='#5dbcd2')
+top.iconbitmap("spongebob.ico")
 top.withdraw()
-width = 971
-height = 545
-frameBgTop = Frame(top, width=width, height=height, bg='#5dbcd2')
+
+framebob = Frame(top, width=971, height=545)
+bob = PhotoImage(file="player.png")
+labeltop = Label(framebob, image=bob)
+labeltop.pack(side=RIGHT)
+framebob.pack()
+
+frameBgTop = Frame(top, width=971, height=545)
 topBg = PhotoImage(file="background.png")
-labeltop = Label(frameBgTop, image=topBg, bg='#5dbcd2')
+labeltop = Label(frameBgTop, image=topBg)
 labeltop.pack(side=RIGHT)
 frameBgTop.pack()
+
+
 window.mainloop()
